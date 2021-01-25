@@ -4,11 +4,10 @@
   "description": "",
   "main": "./lib/Main.internal.ts",
   "scripts": {
-
     "test": "run-script-os",
     "test:win32" : "ts-node ./lib/Main.internal.ts",
     "test:darwin:linux" : "sudo ts-node ./lib/Main.internal.ts"
-    
+
   },
   "repository": {
     "type": "git",
