@@ -1,8 +1,8 @@
-export const UUID = {
+export const GattUUID = {
     testService : {
         uuid : "aaaaaaaabbbbccccddddeeeeeeee0100" as const,
-        characteristicsUuid : {
-
+        characteristics : {
+            stringCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0101" as const
         }
     } 
 }

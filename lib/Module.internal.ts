@@ -1,2 +1,5 @@
 export * from "./src/BLE"
+export * from "./src/CallbackType"
 export * from "./src/GattUUID"
+export * from "./src/NotifyData"
+export * from "./src/ResultCode"

@@ -3,6 +3,10 @@ import bleno from 'bleno'
 import {
     exec
 } from 'shelljs'
+import os from 'os'
+import {
+    TestService
+} from "./Services/TestService/TestService"
 
 export class BLE {
     private static sInstance : BLE;
@@ -11,8 +15,8 @@ export class BLE {
         return this.sInstance
     }
 
-    constructor() {
-        exec('sudo systemctl start bluetooth')
+    private constructor() {
+        if(os.type() == 'Linux') exec('sudo systemctl start bluetooth')
     }
 
     async startAdvertising() {
@@ -23,7 +27,7 @@ export class BLE {
                 if(err) reject(err)
                 else {
                     bleno.setServices([
-                        // Services...
+                        TestService.instance
                     ])
                     resolve()
                 }
