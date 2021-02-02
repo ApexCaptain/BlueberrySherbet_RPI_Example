@@ -5,8 +5,8 @@ import {
 } from 'shelljs'
 import os from 'os'
 import {
-    TestService
-} from "./Services/TestService/TestService"
+    PrimitiveService
+} from "./Services/TestService/PrimitiveService"
 
 export class BLE {
     private static sInstance : BLE;
@@ -27,7 +27,7 @@ export class BLE {
                 if(err) reject(err)
                 else {
                     bleno.setServices([
-                        TestService.instance
+                        PrimitiveService.instance
                     ])
                     resolve()
                 }
