@@ -6,7 +6,10 @@ import {
 import os from 'os'
 import {
     PrimitiveService
-} from "./Services/TestService/PrimitiveService"
+} from "./Services/PrimitiveService/PrimitiveService"
+import {
+    ObjectService
+} from "./Services/ObjectService/ObjectService"
 
 export class BLE {
     private static sInstance : BLE;
@@ -27,7 +30,8 @@ export class BLE {
                 if(err) reject(err)
                 else {
                     bleno.setServices([
-                        PrimitiveService.instance
+                        PrimitiveService.instance,
+                        ObjectService.instance
                     ])
                     resolve()
                 }

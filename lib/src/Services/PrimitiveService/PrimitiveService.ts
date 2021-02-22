@@ -16,7 +16,7 @@ export class PrimitiveService extends bleno.PrimaryService{
     }
     private constructor() {
         super({
-            uuid : GattUUID.testService.uuid,
+            uuid : GattUUID.primitiveService.uuid,
             characteristics : [
                 StringCharacteristic.instance,
                 IntegerCharacteristic.instance

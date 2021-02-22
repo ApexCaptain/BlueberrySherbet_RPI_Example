@@ -9,19 +9,19 @@ import {
     EventEmitter
 } from 'events'
 
-export class StringCharacteristic extends bleno.Characteristic {
+export class IntegerCharacteristic extends bleno.Characteristic {
 
     private static EVENT_NOTIFY = "eventNotify"
-    private static sInstance : StringCharacteristic
+    private static sInstance : IntegerCharacteristic
     private static sEmitter = new EventEmitter()
 
-    static get instance() : StringCharacteristic {
-        if(!this.sInstance) this.sInstance = new StringCharacteristic()
+    static get instance() : IntegerCharacteristic {
+        if(!this.sInstance) this.sInstance = new IntegerCharacteristic()
         return this.sInstance
     }
     private constructor() {
         super({
-            uuid : GattUUID.testService.characteristics.stringCharacteristicUuid,
+            uuid : GattUUID.primitiveService.characteristics.integerCharacteristicUuid,
             properties : [
                 "read",
                 "write",
@@ -29,38 +29,42 @@ export class StringCharacteristic extends bleno.Characteristic {
                 "notify"
             ]
         })
+        let integerToNotify = 0
         setInterval(() => {
-            StringCharacteristic.sEmitter.emit(StringCharacteristic.EVENT_NOTIFY, "String notification data.")
+            IntegerCharacteristic.sEmitter.emit(IntegerCharacteristic.EVENT_NOTIFY, integerToNotify++)
         }, 5000)
     }
 
+    private readData = 0
     onReadRequest(offset : number, callback : ReadRequestCallback) {
         try {
-            const dataToSend = "Hello, Sherbet!"
-            const dataBuffer = Buffer.from(dataToSend)
+            const dataBuffer = Buffer.from(this.readData.toString())
             if(offset > dataBuffer.length) callback(ResultCode.INVALID_OFFSET)
-            else callback(ResultCode.SUCCESS, dataBuffer.slice(offset))
-        } catch (error) { callback(ResultCode.FAILURE) }
+            else {
+                callback(ResultCode.SUCCESS, dataBuffer.slice(offset))
+                this.readData++
+            }
+        } catch(error) { callback(ResultCode.FAILURE) }
     }
 
     onWriteRequest(data : Buffer, _ : number, withoutResponse : boolean, callback : WriteRequestCallback) {
         try {
-            const receivedData = data.toString()
-            console.info(`Received Data : ${receivedData}`)
+            const receivedData = parseInt(data.toString())
+            if(receivedData != NaN) console.info(`Received Data : ${receivedData}`)
             if(!withoutResponse) callback(ResultCode.SUCCESS)
-        } catch (error) { 
+        } catch(error) {
             if(!withoutResponse) callback(ResultCode.FAILURE)
         }
     }
 
     onSubscribe(maxValueSize : number, updateValueCallback : UpdateValueCallback) {
-        StringCharacteristic.sEmitter.on(StringCharacteristic.EVENT_NOTIFY, (data : string) => {
+        IntegerCharacteristic.sEmitter.on(IntegerCharacteristic.EVENT_NOTIFY, (data : number) => {
             notifyData(data, maxValueSize, updateValueCallback, "$EoD")
         })
     }
 
     onUnsubscribe() {
-        StringCharacteristic.sEmitter.removeAllListeners(StringCharacteristic.EVENT_NOTIFY)
+        IntegerCharacteristic.sEmitter.removeAllListeners(IntegerCharacteristic.EVENT_NOTIFY)
     }
 
 }
