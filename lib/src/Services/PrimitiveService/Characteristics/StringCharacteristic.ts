@@ -11,7 +11,7 @@ import {
 
 export class StringCharacteristic extends bleno.Characteristic {
 
-    private static EVENT_NOTIFY = "eventNotify"
+    private static EVENT_NOTIFY = `EVENT_NOTIFY_${StringCharacteristic.name}`
     private static sInstance : StringCharacteristic
     private static sEmitter = new EventEmitter()
 
@@ -25,7 +25,6 @@ export class StringCharacteristic extends bleno.Characteristic {
             properties : [
                 "read",
                 "write",
-                "writeWithoutResponse",
                 "notify"
             ]
         })
@@ -47,10 +46,8 @@ export class StringCharacteristic extends bleno.Characteristic {
         try {
             const receivedData = data.toString()
             console.info(`Received Data : ${receivedData}`)
-            if(!withoutResponse) callback(ResultCode.SUCCESS)
-        } catch (error) { 
-            if(!withoutResponse) callback(ResultCode.FAILURE)
-        }
+            callback(ResultCode.SUCCESS)
+        } catch (error) { callback(ResultCode.FAILURE) }
     }
 
     onSubscribe(maxValueSize : number, updateValueCallback : UpdateValueCallback) {

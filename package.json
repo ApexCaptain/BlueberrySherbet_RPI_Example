@@ -5,9 +5,8 @@
   "main": "./lib/Main.internal.ts",
   "scripts": {
     "test": "run-script-os",
-    "test:win32" : "ts-node ./lib/Main.internal.ts",
-    "test:darwin:linux" : "sudo ts-node ./lib/Main.internal.ts"
-
+    "test:win32": "ts-node ./lib/Main.internal.ts",
+    "test:darwin:linux": "sudo ts-node ./lib/Main.internal.ts"
   },
   "repository": {
     "type": "git",
@@ -23,9 +22,11 @@
   "dependencies": {
     "@types/bleno": "^0.4.1",
     "@types/shelljs": "^0.8.8",
+    "@types/xml-js": "^1.0.0",
     "bleno": "^0.5.0",
     "shelljs": "^0.8.4",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "run-script-os": "^1.1.5",

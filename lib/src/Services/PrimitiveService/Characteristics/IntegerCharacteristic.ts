@@ -11,7 +11,7 @@ import {
 
 export class IntegerCharacteristic extends bleno.Characteristic {
 
-    private static EVENT_NOTIFY = "eventNotify"
+    private static EVENT_NOTIFY = `EVENT_NOTIFY_${IntegerCharacteristic.name}`
     private static sInstance : IntegerCharacteristic
     private static sEmitter = new EventEmitter()
 
@@ -25,7 +25,6 @@ export class IntegerCharacteristic extends bleno.Characteristic {
             properties : [
                 "read",
                 "write",
-                "writeWithoutResponse",
                 "notify"
             ]
         })
@@ -51,10 +50,8 @@ export class IntegerCharacteristic extends bleno.Characteristic {
         try {
             const receivedData = parseInt(data.toString())
             if(receivedData != NaN) console.info(`Received Data : ${receivedData}`)
-            if(!withoutResponse) callback(ResultCode.SUCCESS)
-        } catch(error) {
-            if(!withoutResponse) callback(ResultCode.FAILURE)
-        }
+            callback(ResultCode.SUCCESS)
+        } catch(error) { callback(ResultCode.FAILURE)}
     }
 
     onSubscribe(maxValueSize : number, updateValueCallback : UpdateValueCallback) {

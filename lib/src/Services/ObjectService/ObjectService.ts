@@ -3,8 +3,11 @@ import {
     GattUUID
 } from "../../../Module.internal"
 import {
-    JsonCharacteristic
-} from "./Characteristics/JsonCharacteristic"
+    GsonCharacteristic
+} from "./Characteristics/GsonCharacteristic"
+import {
+    SimpleXmlCharacteristic
+} from "./Characteristics/SimpleXmlCharacteristic"
 export class ObjectService extends bleno.PrimaryService {
     private static sInstance : ObjectService
     static get instance() : ObjectService {
@@ -15,7 +18,8 @@ export class ObjectService extends bleno.PrimaryService {
         super({
             uuid : GattUUID.objectService.uuid,
             characteristics : [
-                JsonCharacteristic.instance
+                GsonCharacteristic.instance,
+                SimpleXmlCharacteristic.instance
             ]  
         })
     }

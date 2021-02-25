@@ -9,7 +9,8 @@ export const GattUUID = {
     objectService : {
         uuid : "aaaaaaaabbbbccccddddeeeeeeee0200" as const,
         characteristics : {
-            jsonCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0201" as const
+            gsonCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0201" as const,
+            simpleXmlCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0202" as const
         }
     }
 }
