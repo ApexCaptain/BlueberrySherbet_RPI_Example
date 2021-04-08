@@ -100,12 +100,36 @@ export class Person implements IPerson, Jsonifiable<IPerson> {
 
     static fromJson(json: string | IPerson & EtcProperties): Person {
         if (typeof json == 'string') json = JSON.parse(json)
-        json = json as Person
+        json = json as IPerson
         return new Person(
             json.name,
             json.age
         )
     }
+}
+
+interface IAnimal {
+    name : string,
+    species : string
+}
+@staticImplements<JsonParsable<IAnimal, Animal>>()
+export class Animal implements IAnimal, Jsonifiable<IAnimal> {
+
+    constructor(public name : string, public species : string) { }
+
+    toJson() : IAnimal {
+        return JSON.parse(JSON.stringify(this))
+    }
+
+    static fromJson(json: string | IAnimal & EtcProperties): Animal {
+        if (typeof json == 'string') json = JSON.parse(json)
+        json = json as IAnimal
+        return new Animal(
+            json.name,
+            json.species
+        )
+    }
+
 }
 
 @staticImplements<XMLParsable<Product>>()

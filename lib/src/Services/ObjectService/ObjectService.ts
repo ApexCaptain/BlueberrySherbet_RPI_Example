@@ -6,6 +6,9 @@ import {
     GsonCharacteristic
 } from "./Characteristics/GsonCharacteristic"
 import {
+    MoshiCharacteristic
+} from "./Characteristics/MoshiCharacteristic"
+import {
     SimpleXmlCharacteristic
 } from "./Characteristics/SimpleXmlCharacteristic"
 export class ObjectService extends bleno.PrimaryService {
@@ -19,6 +22,7 @@ export class ObjectService extends bleno.PrimaryService {
             uuid : GattUUID.objectService.uuid,
             characteristics : [
                 GsonCharacteristic.instance,
+                MoshiCharacteristic.instance,
                 SimpleXmlCharacteristic.instance
             ]  
         })

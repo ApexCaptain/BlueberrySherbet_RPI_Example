@@ -10,7 +10,8 @@ export const GattUUID = {
         uuid : "aaaaaaaabbbbccccddddeeeeeeee0200" as const,
         characteristics : {
             gsonCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0201" as const,
-            simpleXmlCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0202" as const
+            moshiCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0202" as const,
+            simpleXmlCharacteristicUuid : "aaaaaaaabbbbccccddddeeeeeeee0203" as const
         }
     }
 }
